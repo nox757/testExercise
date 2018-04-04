@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
 
         if(new File(rootPath).exists()) {
-            methodFS(rootPath);
+            methodFS(rootPath); // comment/uncommnet to use differ method if need
             //mehtodStream(rootPath);
         } else {
             System.err.println("No dir " + rootPath);
