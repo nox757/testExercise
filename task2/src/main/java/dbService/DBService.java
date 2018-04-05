@@ -34,12 +34,13 @@ public class DBService {
 
     public long addStudent(Student student) throws DBException {
         try {
+            long id;
             connection.setAutoCommit(false);
             StudentDAO dao = new StudentDAO(connection);
             dao.createTable();
-            dao.insertStudent(student);
+            id = dao.insertStudent(student);
             connection.commit();
-            return dao.getStudentId(student.getName());
+            return id;
         } catch (SQLException e) {
             try {
                 connection.rollback();

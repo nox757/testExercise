@@ -17,22 +17,19 @@ public class StudentDAO {
 
     public Student get(long id) throws SQLException {
         return executor.execQuery("select * from students where id=" + id, result -> {
-            result.next();
-            return new Student(result.getLong(1), result.getString(2),
-                    result.getString(3), result.getString(4),
-                    result.getDate(5), result.getLong(6));
+            if(result.next()) {
+                return new Student(result.getLong(1), result.getString(2),
+                        result.getString(3), result.getString(4),
+                        result.getDate(5), result.getLong(6));
+            } else {
+                return null;
+            }
         });
     }
 
-    public long getStudentId(String name) throws SQLException {
-        return executor.execQuery("select * from students where name='" + name + "'", result -> {
-            result.next();
-            return result.getLong(1);
-        });
-    }
 
-    public void insertStudent(Student student) throws SQLException {
-        executor.execUpdate(String.format("insert into students (name, surname, second_name, date_born, group_id) values ('%s', '%s', '%s', '%s', '%s')", student.getName(), student.getSurname(), student.getSecondName(), student.getDateBorn().toString(), Long.toString(student.getGroupID())));
+    public long insertStudent(Student student) throws SQLException {
+        return executor.execUpdate(String.format("insert into students (name, surname, second_name, date_born, group_id) values ('%s', '%s', '%s', '%s', '%s')", student.getName(), student.getSurname(), student.getSecondName(), student.getDateBorn().toString(), Long.toString(student.getGroupID())));
     }
 
     public long deleteStudent(long id) throws SQLException {

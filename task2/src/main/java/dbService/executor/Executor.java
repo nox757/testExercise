@@ -10,15 +10,16 @@ public class Executor {
     }
 
     public long execUpdate(String update) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute(update);
-        stmt.close();
-//        PreparedStatement pstmt = connection.prepareStatement(update, Statement.RETURN_GENERATED_KEYS);
-//        pstmt.executeUpdate();
-//        ResultSet keys = pstmt.getGeneratedKeys();
-//        keys.next();
-//        System.out.println(keys.getLong(1));
-//        return keys.getLong(1);
+//        Statement stmt = connection.createStatement();
+//        stmt.execute(update);
+//        stmt.close();
+        PreparedStatement stmt = connection.prepareStatement(update, Statement.RETURN_GENERATED_KEYS);
+        stmt.executeUpdate();
+        ResultSet keys = stmt.getGeneratedKeys();
+        if(keys.next()) {
+            //System.out.println(keys.getLong(1));
+            return keys.getLong(1);
+        }
         return 0;
     }
 
