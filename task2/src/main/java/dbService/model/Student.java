@@ -11,6 +11,11 @@ public class Student {
     private Date dateBorn;
     private long groupID;
 
+    public Student(){
+        this.id = -1;
+        this.groupID = -1;
+    }
+
     public Student(long id, String surname, String name, String secondName, Date dateBorn, long groupID) {
         this.id = id;
         this.name = name;

@@ -31,8 +31,12 @@ public class StudentDAO {
         });
     }
 
-    public void insertUser(Student student) throws SQLException {
+    public void insertStudent(Student student) throws SQLException {
         executor.execUpdate(String.format("insert into students (name, surname, second_name, date_born, group_id) values ('%s', '%s', '%s', '%s', '%s')", student.getName(), student.getSurname(), student.getSecondName(), student.getDateBorn().toString(), Long.toString(student.getGroupID())));
+    }
+
+    public long deleteStudent(long id) throws SQLException {
+        return executor.execUpdate("delete from students where id=" + id);
     }
 
     public void createTable() throws SQLException {

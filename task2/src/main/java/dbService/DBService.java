@@ -24,12 +24,20 @@ public class DBService {
         }
     }
 
+    public long deleteStudent(long id) throws DBException {
+        try {
+            return (new StudentDAO(connection).deleteStudent(id));
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
     public long addStudent(Student student) throws DBException {
         try {
             connection.setAutoCommit(false);
             StudentDAO dao = new StudentDAO(connection);
             dao.createTable();
-            dao.insertUser(student);
+            dao.insertStudent(student);
             connection.commit();
             return dao.getStudentId(student.getName());
         } catch (SQLException e) {

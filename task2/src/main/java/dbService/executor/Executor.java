@@ -9,7 +9,7 @@ public class Executor {
         this.connection = connection;
     }
 
-    public void execUpdate(String update) throws SQLException {
+    public long execUpdate(String update) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.execute(update);
         stmt.close();
@@ -19,7 +19,10 @@ public class Executor {
 //        keys.next();
 //        System.out.println(keys.getLong(1));
 //        return keys.getLong(1);
+        return 0;
     }
+
+
 
     public <T> T execQuery(String query,
                            ResultHandler<T> handler)
